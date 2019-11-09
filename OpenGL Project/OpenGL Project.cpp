@@ -8,84 +8,10 @@
 #include "Headers/IndexBuffer.h";
 #include "Headers/VertexArray.h"
 #include "Headers/VertexBufferLayout.h"
+#include "Headers/Shader.h"
 
 using namespace std;
 
-struct ShaderSrc
-{
-	string vertex;
-	string fragment;
-};
-
-static ShaderSrc GetShader(const string& path) {
-	ifstream stream(path);
-	enum class ShaderType {
-		NONE = -1, VERTEX = 0, FRAGMENT = 1
-	};
-
-	string line;
-	string shaders[2];
-	ShaderType type = ShaderType::NONE;
-	while (getline(stream, line)) {
-		if (line == "#shader vertex") {
-			type = ShaderType::VERTEX;
-		}
-		if (line == "#shader fragment") {
-			type = ShaderType::FRAGMENT;
-		}
-
-		if (type == ShaderType::VERTEX && line != "#shader vertex") {
-			shaders[0] += line + "\n";
-		}
-		if (type == ShaderType::FRAGMENT && line != "#shader fragment") {
-			shaders[1] += line + "\n";
-		}
-	}
-
-	return { shaders[0], shaders[1] };
-}
-
-static unsigned int CompileShader(unsigned int type, const string& source) {
-
-	unsigned int id = glCreateShader(type);
-	const char* src = source.c_str();
-	glShaderSource(id, 1, &src, nullptr);
-	glCompileShader(id);
-
-	//ERROR HANDLER
-	int result;
-	glGetShaderiv(id, GL_COMPILE_STATUS, &result);
-	if (!result) {
-
-		int length;
-		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-		char* message = (char*)alloca(length * sizeof(char));
-		glGetShaderInfoLog(id, length, &length, message);
-		cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << " shader!" << endl;
-		cout << message << endl;
-	}
-	return id;
-}
-
-static unsigned int CreateShader(const string& vertexShader, const string& fragmentShader) {
-
-	unsigned int program = glCreateProgram();
-
-	unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
-	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
-
-	glAttachShader(program, vs);
-	glAttachShader(program, fs);
-
-	glLinkProgram(program);
-	glValidateProgram(program);
-
-	glDeleteShader(vs);
-	glDeleteShader(fs);
-
-	return program;
-
-}
 
 int main(void)
 {
@@ -136,10 +62,8 @@ int main(void)
 
 		IndexBuffer ib(indicies, 6);
 
-		ShaderSrc src = GetShader("Resources/Basic.shader");
-		unsigned int shader = CreateShader(src.vertex, src.fragment);
-		call(glUseProgram(shader));
-		int location = glGetUniformLocation(shader, "_color");
+		Shader shader("Resources/Basic.shader");
+
 
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -158,7 +82,7 @@ int main(void)
 			}
 			red += i;
 
-			glUniform4f(location, red, 0.5f, 0.f, 0.f);
+			shader.SetUniform4f<float>("_color", red, 0.5f, 0.f, 0.f);
 
 			va.Bind();
 			ib.Bind();
