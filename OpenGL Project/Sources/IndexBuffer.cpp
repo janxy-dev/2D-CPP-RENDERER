@@ -1,6 +1,6 @@
 #include "../Headers/IndexBuffer.h"
 #include <GL/glew.h>
-#include "../Headers/ErrorHandler.h"
+#include "../Headers/Renderer.h"
 
 IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count)
 	:_count(count)

@@ -3,9 +3,11 @@
 #include <fstream>
 #include <string>
 #include <iostream>
-#include "Headers/ErrorHandler.h";
+#include "Headers/Renderer.h";
 #include "Headers/VertexBuffer.h";
 #include "Headers/IndexBuffer.h";
+#include "Headers/VertexArray.h"
+#include "Headers/VertexBufferLayout.h"
 
 using namespace std;
 
@@ -126,13 +128,11 @@ int main(void)
 			0, 1, 3,
 		};
 
-		unsigned int vao;
-		glGenVertexArrays(1, &vao);
-		glBindVertexArray(vao);
-
+		VertexArray va;
 		VertexBuffer vb(positions, sizeof(positions));
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
+		va.AddBuffer(vb, layout);
 
 		IndexBuffer ib(indicies, 6);
 
@@ -160,7 +160,7 @@ int main(void)
 
 			glUniform4f(location, red, 0.5f, 0.f, 0.f);
 
-			call(glBindVertexArray(vao));
+			va.Bind();
 			ib.Bind();
 
 			call(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
