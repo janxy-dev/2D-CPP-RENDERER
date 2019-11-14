@@ -157,25 +157,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="res\Basic.shader" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="OpenGL Project.cpp" />
     <ClCompile Include="Sources\ErrorHandler.cpp" />
     <ClCompile Include="Sources\IndexBuffer.cpp" />
     <ClCompile Include="Sources\Renderer.cpp" />
     <ClCompile Include="Sources\Shader.cpp" />
+    <ClCompile Include="Sources\Texture.cpp" />
     <ClCompile Include="Sources\VertexArray.cpp" />
     <ClCompile Include="Sources\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\ErrorHandler.h" />
+    <ClInclude Include="Headers\Texture.h" />
     <ClInclude Include="Headers\IndexBuffer.h" />
     <ClInclude Include="Headers\Renderer.h" />
     <ClInclude Include="Headers\Shader.h" />
     <ClInclude Include="Headers\VertexArray.h" />
     <ClInclude Include="Headers\VertexBuffer.h" />
-    <ClInclude Include="Headers\VertexBufferLayout.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Basic.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

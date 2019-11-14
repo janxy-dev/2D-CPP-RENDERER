@@ -1,9 +1,9 @@
-#include <iostream>
-#include "../Headers/Renderer.h"
 #include "../Headers/VertexArray.h"
-#include "../Headers/VertexBuffer.h"
+#include <GL/glew.h>
+#include "../Headers/ErrorHandler.h"
+#include <iostream>
 
-VertexArray::VertexArray() {
+VertexArray::VertexArray(){
 	call(glGenVertexArrays(1, &_rendID));
 }
 
@@ -11,25 +11,27 @@ VertexArray::~VertexArray() {
 	call(glDeleteVertexArrays(1, &_rendID));
 }
 
-void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout) {
+void VertexArray::Bind() const {
+	glBindVertexArray(_rendID);
+}
+
+void VertexArray::UnBind() const {
+	glBindVertexArray(0);
+}
+
+void VertexArray::AddBuffer(VertexBuffer& vb, unsigned int layout, unsigned int count, unsigned int type, unsigned int stride, unsigned int pointer) {
 	Bind();
 	vb.Bind();
-	const auto& elements = layout.GetElements();
-	unsigned int offset = 0;
-	for (unsigned int i = 0; i < elements.size(); i++) {
-		const auto& element = elements[i];
-		glEnableVertexAttribArray(i);
-		glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.GetStride(), (const void*)offset);
-		offset += element.count * VertexBufferElement::GetSizeOfType(element.type);
+	if (object != &vb) {
+		offset = 0;
 	}
-}
+	if (pointer != 0) { offset = pointer; }
+	if (type == GL_FLOAT) {
+		glVertexAttribPointer(layout, count, GL_FLOAT, GL_FALSE, sizeof(float) * stride, (void*)(offset*sizeof(float)));
+		glEnableVertexAttribArray(layout);
+		object = &vb;
+		
+	}
+	if (pointer == 0) { offset += count; }
 
-void VertexArray::Bind() const
-{
-	call(glBindVertexArray(_rendID));
-}
-
-void VertexArray::UnBind() const
-{
-	call(glBindVertexArray(0));
 }

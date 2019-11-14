@@ -1,17 +1,15 @@
 #pragma once
-#include "../Headers/VertexBuffer.h"
-#include "../Headers/VertexBufferLayout.h"
-
+#include"../Headers//VertexBuffer.h"
 class VertexArray {
-
-private:
-	unsigned int _rendID;
 
 public:
 	VertexArray();
 	~VertexArray();
-	void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+	void AddBuffer(VertexBuffer& vb, unsigned int layout, unsigned int element_count, unsigned int type, unsigned int element_stride, unsigned int element_offset = 0);
 	void Bind() const;
 	void UnBind() const;
-
+private:
+	unsigned int _rendID;
+	unsigned int offset = 0;
+	VertexBuffer* object;
 };

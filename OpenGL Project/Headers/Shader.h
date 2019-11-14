@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include<string>
-#include"Renderer.h"
+#include"../Headers/ErrorHandler.h"
+#include <GL/glew.h>
 
 struct ShaderSrc
 {
@@ -26,6 +27,16 @@ public:
 	void SetUniform4f(const char* name, T a, T b, T c, T d) {
 		location = glGetUniformLocation(_id, name);
 		call(glUniform4f(location, a, b, c, d));
+	}
+	template<class T>
+	void SetUniform2f(const char* name, T a, T b) {
+		location = glGetUniformLocation(_id, name);
+		call(glUniform2f(location, a, b));
+	}
+	template<class T>
+	void SetUniform4f(const char* name, T a) {
+		location = glGetUniformLocation(_id, name);
+		call(glUniform1f(location, a));
 	}
 
 };

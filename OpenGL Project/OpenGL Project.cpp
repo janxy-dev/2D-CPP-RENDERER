@@ -3,12 +3,13 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+
 #include "Headers/Renderer.h";
 #include "Headers/VertexBuffer.h";
 #include "Headers/IndexBuffer.h";
 #include "Headers/VertexArray.h"
-#include "Headers/VertexBufferLayout.h"
 #include "Headers/Shader.h"
+#include "Headers/Texture.h"
 
 using namespace std;
 
@@ -42,11 +43,20 @@ int main(void)
 
 	{
 
+
+
+	float colors[] = {
+		1.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 1.0f,
+		1.0f, 1.0f, 0.0f
+	};
+
 		float positions[] = {
-		   -0.5f, -0.5f, //0
-			0.5f,  0.5f, //1
-		   -0.5f,  0.5f, //2
-			0.5f, -0.5f, //3
+		   -0.5f, -0.5f, 0.0f,   0.5f, -0.5f, 0.0f,  // 0
+			0.5f,  0.5f, 0.0f,   0.5f,  0.5f, 0.0f,  // 1
+		   -0.5f,  0.5f, 0.0f,  -0.5f,  0.5f, 0.0f, // 2
+			0.5f, -0.5f, 0.0f,    0.5f, -0.5f, 0.0f   // 3
 		};
 
 		unsigned int indicies[] = {
@@ -55,25 +65,27 @@ int main(void)
 		};
 
 		VertexArray va;
-		VertexBuffer vb(positions, sizeof(positions));
-		VertexBufferLayout layout;
-		layout.Push<float>(2);
-		va.AddBuffer(vb, layout);
+
+		VertexBuffer vb(positions, 6*4*sizeof(float));
+		va.AddBuffer(vb, 2, 3, GL_FLOAT, 6);
+		va.AddBuffer(vb, 0, 3, GL_FLOAT, 6);
+
 
 		IndexBuffer ib(indicies, 6);
 
+		//va.AddBuffer(vb, 3, GL_FLOAT, 12);
+
+		
+
 		Shader shader("Resources/Basic.shader");
-
-
-		glBindVertexArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		Texture texture("Resources/wall.jpg");
 
 		float red = 0.1f;
 		float i = 0.01f;
 		while (!glfwWindowShouldClose(window))
 		{
-			glClear(GL_COLOR_BUFFER_BIT);
+			Renderer::Clear();
+
 			if (red > 1.f) {
 				i = -0.01f;
 			}
@@ -83,11 +95,8 @@ int main(void)
 			red += i;
 
 			shader.SetUniform4f<float>("_color", red, 0.5f, 0.f, 0.f);
-
-			va.Bind();
-			ib.Bind();
-
-			call(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+			Renderer::Draw(va, ib, shader);
+			
 
 
 			/* Swap front and back buffers */
