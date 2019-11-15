@@ -17,9 +17,11 @@
 mono_crash.*
 
 # Build results
+
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
+OpenGL Project/Release
+Release/*.exe
 [Rr]eleases/
 x64/
 x86/
@@ -351,3 +353,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+

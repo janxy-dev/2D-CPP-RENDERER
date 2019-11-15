@@ -40,5 +40,11 @@ public:
 		call(glUniform1f(location, a));
 	}
 
+	template<class T>
+	void SetUniform1i(const char* name, T a) {
+		location = glGetUniformLocation(_id, name);
+		call(glUniform1i(location, a));
+	}
+
 };
 

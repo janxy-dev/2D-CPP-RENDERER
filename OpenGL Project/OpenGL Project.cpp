@@ -59,21 +59,16 @@ int main(void)
 		VertexArray va;
 
 		VertexBuffer vb(vertices, 8*4*sizeof(float));
-		       //    index count   stride   offset*
 		va.AddBuffer(vb, 0, 3, GL_FLOAT, 8);
 		va.AddBuffer(vb, 1, 3, GL_FLOAT, 8); 
 		va.AddBuffer(vb, 2, 2, GL_FLOAT, 8);
 
 		IndexBuffer ib(indicies, 6);
 
-		//va.AddBuffer(vb, 3, GL_FLOAT, 12);
-
-		
-
-		Shader shader("Resources/Basic.shader");
+		Shader shader("Resources/Shader.shader");
 
 		Texture texture("Resources/wall.jpg", GL_TEXTURE0);
-		//Texture texture2("Resources/wall.jpg", GL_TEXTURE1);
+		Texture texture2("Resources/logo.png", GL_TEXTURE1);
 
 		float red = 0.1f;
 		float i = 0.01f;
@@ -90,8 +85,8 @@ int main(void)
 			red += i;
 
 			shader.SetUniform4f<float>("_color", red, 0.5f, 0.f, 0.f);
-			glUniform1i(glGetUniformLocation(shader.GetShader(), "_texture"), 0);
-			glUniform1i(glGetUniformLocation(shader.GetShader(), "_texture2"), 1);
+			shader.SetUniform1i("_texture", 0);
+			shader.SetUniform1i("_texture2", 1);
 			Renderer::Draw(va, ib, shader);
 			
 
