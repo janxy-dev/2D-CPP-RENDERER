@@ -2,7 +2,6 @@
 
 #include "../Headers/Texture.h"
 #include "../../Dependencies/stb_image.h"
-#include<GL/glew.h>
 using namespace std;
 
 float texCords[] = {
@@ -13,12 +12,13 @@ float texCords[] = {
 
 };
 
-Texture::Texture(const char* path)
-	: _rendID(0), _path(path), width(0), height(0), nrChannels(0)
+Texture::Texture(const char* path, unsigned int index)
+	: _rendID(0), _path(path), width(0), height(0), nrChannels(0), layout(index)
 
 {
-
+	
 	glGenTextures(1, &_rendID);
+	glActiveTexture(layout);
 	glBindTexture(GL_TEXTURE_2D, _rendID);
 
 	// texture wrapping/filtering options
@@ -40,4 +40,8 @@ Texture::Texture(const char* path)
 	stbi_image_free(data);
 
 	
+}
+
+void Texture::Bind() {
+	glBindTexture(GL_TEXTURE_2D, _rendID);
 }

@@ -23,6 +23,7 @@ public:
 	inline unsigned int GetShader() const { return _id; }
 	void Bind() const;
 	void UnBind() const;
+
 	template<class T>
 	void SetUniform4f(const char* name, T a, T b, T c, T d) {
 		location = glGetUniformLocation(_id, name);

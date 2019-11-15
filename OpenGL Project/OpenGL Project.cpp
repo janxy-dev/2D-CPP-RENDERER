@@ -43,33 +43,26 @@ int main(void)
 
 	{
 
-
-
-	float colors[] = {
-		1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 1.0f,
-		1.0f, 1.0f, 0.0f
-	};
-
-		float positions[] = {
-		   -0.5f, -0.5f, 0.0f,   0.5f, -0.5f, 0.0f,  // 0
-			0.5f,  0.5f, 0.0f,   0.5f,  0.5f, 0.0f,  // 1
-		   -0.5f,  0.5f, 0.0f,  -0.5f,  0.5f, 0.0f, // 2
-			0.5f, -0.5f, 0.0f,    0.5f, -0.5f, 0.0f   // 3
+		float vertices[] = {
+			// positions          // colors           // texture coords
+			 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, 
+			 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   
+			-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,  
+			-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    
 		};
 
 		unsigned int indicies[] = {
 			0, 1, 2,
-			0, 1, 3,
+			0, 3, 2
 		};
 
 		VertexArray va;
 
-		VertexBuffer vb(positions, 6*4*sizeof(float));
-		va.AddBuffer(vb, 2, 3, GL_FLOAT, 6);
-		va.AddBuffer(vb, 0, 3, GL_FLOAT, 6);
-
+		VertexBuffer vb(vertices, 8*4*sizeof(float));
+		       //    index count   stride   offset*
+		va.AddBuffer(vb, 0, 3, GL_FLOAT, 8);
+		va.AddBuffer(vb, 1, 3, GL_FLOAT, 8); 
+		va.AddBuffer(vb, 2, 2, GL_FLOAT, 8);
 
 		IndexBuffer ib(indicies, 6);
 
@@ -78,7 +71,9 @@ int main(void)
 		
 
 		Shader shader("Resources/Basic.shader");
-		Texture texture("Resources/wall.jpg");
+
+		Texture texture("Resources/wall.jpg", GL_TEXTURE0);
+		//Texture texture2("Resources/wall.jpg", GL_TEXTURE1);
 
 		float red = 0.1f;
 		float i = 0.01f;
@@ -95,6 +90,8 @@ int main(void)
 			red += i;
 
 			shader.SetUniform4f<float>("_color", red, 0.5f, 0.f, 0.f);
+			glUniform1i(glGetUniformLocation(shader.GetShader(), "_texture"), 0);
+			glUniform1i(glGetUniformLocation(shader.GetShader(), "_texture2"), 1);
 			Renderer::Draw(va, ib, shader);
 			
 
@@ -105,7 +102,7 @@ int main(void)
 			glfwPollEvents();
 		}
 
-		//glDeleteProgram(shader);
+		glDeleteProgram(shader.GetShader());
 	}
 	glfwTerminate();
 	return 0;
