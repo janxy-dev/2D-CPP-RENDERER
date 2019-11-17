@@ -92,6 +92,11 @@ unsigned int Shader::CreateShader(const string& vertexShader, const string& frag
 
 }
 
+void Shader::SetUniformMatrix4fv(const char* name, unsigned int count, unsigned int transpose, const GLfloat* value) {
+	location = glGetUniformLocation(_id, name);
+	call(glUniformMatrix4fv(location, count, transpose, value));
+
+}
 
 
 

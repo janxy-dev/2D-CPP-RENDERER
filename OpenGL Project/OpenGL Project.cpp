@@ -1,5 +1,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <GLM/glm.hpp>
+#include <GLM/gtc/matrix_transform.hpp>
+#include <GLM/gtc/type_ptr.hpp>
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -70,6 +73,8 @@ int main(void)
 		Texture texture("Resources/wall.jpg", GL_TEXTURE0);
 		Texture texture2("Resources/logo.png", GL_TEXTURE1);
 
+
+
 		float red = 0.1f;
 		float i = 0.01f;
 		while (!glfwWindowShouldClose(window))
@@ -87,6 +92,12 @@ int main(void)
 			shader.SetUniform4f<float>("_color", red, 0.5f, 0.f, 0.f);
 			shader.SetUniform1i("_texture", 0);
 			shader.SetUniform1i("_texture2", 1);
+
+			glm::mat4 trans = glm::mat4(1.0f);
+			trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+			trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
+
+			shader.SetUniformMatrix4fv("transform", 1, GL_FALSE, glm::value_ptr(trans));
 			Renderer::Draw(va, ib, shader);
 			
 

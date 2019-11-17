@@ -46,5 +46,7 @@ public:
 		call(glUniform1i(location, a));
 	}
 
+	void SetUniformMatrix4fv(const char* name, unsigned int count, unsigned int transpose, const GLfloat* value);
+
 };
 

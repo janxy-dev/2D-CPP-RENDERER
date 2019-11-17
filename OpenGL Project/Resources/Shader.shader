@@ -8,8 +8,10 @@ layout(location = 2) in vec2 aTexCoords;
 out vec3 _color;
 out vec2 _texcoord;
 
+uniform mat4 transform;
+
 void main(){
-	gl_Position = vec4(pos, 1.0);
+	gl_Position = transform * vec4(pos, 1.0);
    _color = aColor;
    _texcoord = aTexCoords;
 }
