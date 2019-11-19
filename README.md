@@ -1,2 +1,4 @@
 # OpenGL Project
- An OpenGL Project written in C++ using GLFW and GLEW libraries.
+ An OpenGL Project written in C++
+ 
+ Dependencies(Included in project): GLFW, GLEW, GLM, stb_image.h
