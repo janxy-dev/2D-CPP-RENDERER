@@ -1,7 +1,7 @@
 #pragma once
 
 #define ASSERT(x) if(!(x)) __debugbreak();
-#define call(x) clearErrors();\
+#define lcall(x) clearErrors();\
     x;\
     ASSERT(erLog(#x, __FILE__, __LINE__))
 

@@ -15,5 +15,6 @@ public:
 private:
 	unsigned int _rendID;
 	unsigned int _count;
+	const unsigned int* _data;
 };
 

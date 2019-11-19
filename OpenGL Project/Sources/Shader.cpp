@@ -6,7 +6,9 @@
 
 using namespace std;
 
-Shader::Shader(const std::string& path) {
+Shader::Shader(const std::string& path)
+	:pth(path)
+{
 	ShaderSrc src = GetShaderSource(path);
 	_id = CreateShader(src.vertex, src.fragment);
 	Bind();
@@ -42,12 +44,12 @@ ShaderSrc Shader::GetShaderSource(const string& path) {
 
 void Shader::Bind() const
 {
-	call(glUseProgram(_id));
+	lcall(glUseProgram(_id));
 }
 
 void Shader::UnBind() const
 {
-	call(glUseProgram(0));
+	lcall(glUseProgram(0));
 }
 
 unsigned int Shader::CompileShader(unsigned int type, const string& source) {
@@ -93,11 +95,28 @@ unsigned int Shader::CreateShader(const string& vertexShader, const string& frag
 }
 
 void Shader::SetUniformMatrix4fv(const char* name, unsigned int count, unsigned int transpose, const GLfloat* value) {
-	location = glGetUniformLocation(_id, name);
-	call(glUniformMatrix4fv(location, count, transpose, value));
+	auto location = glGetUniformLocation(_id, name);
+	lcall(glUniformMatrix4fv(location, count, transpose, value));
 
 }
 
+void Shader::SetUniform4f(const char* name, float a, float b, float c, float d) {
+	auto location = glGetUniformLocation(_id, name);
+	lcall(glUniform4f(location, a, b, c, d));
+}
+void Shader::SetUniform2f(const char* name, float a, float b) {
+	auto location = glGetUniformLocation(_id, name);
+	lcall(glUniform2f(location, a, b));
+}
+void Shader::SetUniform4f(const char* name, float a) {
+	auto location = glGetUniformLocation(_id, name);
+	lcall(glUniform1f(location, a));
+}
+
+void Shader::SetUniform1i(const char* name, int a) {
+	auto location = glGetUniformLocation(_id, name);
+	lcall(glUniform1i(location, a));
+}
 
 
 

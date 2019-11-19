@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="OpenGL Project.cpp" />
+    <ClCompile Include="Sources\ShapeRectangle.cpp" />
     <ClCompile Include="Sources\ErrorHandler.cpp" />
     <ClCompile Include="Sources\IndexBuffer.cpp" />
     <ClCompile Include="Sources\Renderer.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Sources\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\ShapeRectangle.h" />
     <ClInclude Include="Headers\ErrorHandler.h" />
     <ClInclude Include="Headers\Texture.h" />
     <ClInclude Include="Headers\IndexBuffer.h" />

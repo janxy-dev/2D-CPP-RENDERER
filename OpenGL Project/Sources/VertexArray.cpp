@@ -4,19 +4,21 @@
 #include <iostream>
 
 VertexArray::VertexArray(){
-	call(glGenVertexArrays(1, &_rendID));
+	(glGenVertexArrays(1, &_rendID));
 }
 
 VertexArray::~VertexArray() {
-	call(glDeleteVertexArrays(1, &_rendID));
+
+	std::cout << "VA DTOR" << std::endl;
+	lcall(glDeleteVertexArrays(1, &_rendID));
 }
 
 void VertexArray::Bind() const {
-	glBindVertexArray(_rendID);
+	lcall(glBindVertexArray(_rendID));
 }
 
 void VertexArray::UnBind() const {
-	glBindVertexArray(0);
+	lcall(glBindVertexArray(0));
 }
 
 void VertexArray::AddBuffer(VertexBuffer& vb, unsigned int layout, unsigned int count, unsigned int type, unsigned int stride, unsigned int pointer) {

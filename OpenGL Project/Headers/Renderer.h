@@ -4,9 +4,12 @@
 #include "../Headers/VertexArray.h"
 #include "../Headers/IndexBuffer.h"
 #include "../Headers/Shader.h"
+#include "../Headers/ShapeRectangle.h"
 
 class Renderer {
 public:
-	static void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader);
-	static void Clear();
+
+	void Draw(const ShapeRectangle& shape);
+	void Clear();
+
 };

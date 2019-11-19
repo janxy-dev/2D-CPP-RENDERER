@@ -1,11 +1,12 @@
 #include"../Headers/Renderer.h"
 
-void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) {
-	shader.Bind();
-	va.Bind();
-	ib.Bind();
+void Renderer::Draw(const ShapeRectangle& shape) {
+	
+	shape.GetObjects().shader.Bind();
+	shape.GetObjects().va.Bind();
+	shape.GetObjects().ib.Bind();
 
-	call(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr));
+	lcall(glDrawElements(GL_TRIANGLES, shape.GetObjects().ib.GetCount(), GL_UNSIGNED_INT, nullptr));
 
 }
 
