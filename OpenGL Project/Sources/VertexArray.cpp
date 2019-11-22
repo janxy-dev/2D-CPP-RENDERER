@@ -3,7 +3,8 @@
 #include "../Headers/ErrorHandler.h"
 #include <iostream>
 
-VertexArray::VertexArray(){
+VertexArray::VertexArray()
+{
 	(glGenVertexArrays(1, &_rendID));
 }
 

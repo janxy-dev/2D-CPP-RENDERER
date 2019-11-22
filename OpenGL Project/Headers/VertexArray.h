@@ -14,5 +14,5 @@ public:
 private:
 	unsigned int _rendID;
 	unsigned int offset = 0;
-	VertexBuffer* object;
+	VertexBuffer* object = nullptr;
 };

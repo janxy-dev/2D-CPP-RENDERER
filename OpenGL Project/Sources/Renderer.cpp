@@ -1,6 +1,6 @@
 #include"../Headers/Renderer.h"
 
-void Renderer::Draw(const ShapeRectangle& shape) {
+void Renderer::Draw(const RectangleShape& shape) {
 	
 	shape.GetObjects().shader.Bind();
 	shape.GetObjects().va.Bind();

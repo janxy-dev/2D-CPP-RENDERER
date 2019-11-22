@@ -13,7 +13,8 @@
 #include "Headers/VertexArray.h"
 #include "Headers/Shader.h"
 #include "Headers/Texture.h"
-#include "Headers/ShapeRectangle.h"
+#include "Headers/RectangleShape.h"
+#include "Headers/Variables.h"
 
 using namespace std;
 
@@ -31,7 +32,7 @@ int main(void)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+	window = glfwCreateWindow(s_width, s_height, "OpenGL", NULL, NULL); //WIDTH: 640, HEIGHT: 480
 	if (!window)
 	{
 		glfwTerminate();
@@ -47,41 +48,27 @@ int main(void)
 
 	{
 
-		float vertices[] = {
-			// positions          // texture coords
-			 0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 
-			 0.5f, -0.5f, 0.0f,   1.0f, 0.0f,   
-			-0.5f, -0.5f, 0.0f,   0.0f, 0.0f,  
-			-0.5f,  0.5f, 0.0f,   0.0f, 1.0f    
-		};
-
-		unsigned int indicies[] = {
-			0, 1, 2,
-			0, 3, 2
-		};
-
-		//VertexArray va;
-
-		//VertexBuffer vb(vertices, 5*4*sizeof(float));
-		//va.AddBuffer(vb, 0, 3, GL_FLOAT, 5);
-		//va.AddBuffer(vb, 1, 2, GL_FLOAT, 5); 
-
-		//IndexBuffer ib(indicies, 6);
-
 		float red = 0.1f;
 		float i = 0.01f;
 
 		Renderer renderer;
 
-		ShapeRectangle rectangle;
+		RectangleShape rectangle(200.0f, 200.0f, glm::vec2(50.0f, 50.0f));
+		rectangle.Scale(glm::vec2(0.5f, 0.5f));
+		rectangle.SetPosition(s_width/2, s_height/2);
+		rectangle.SetPosition(0.0f, 0.0f);
+		rectangle.SetPosition(50.0f, 50.0f);
+		rectangle.Rotate(45);
 		rectangle.SetTexture("Resources/wall.jpg");
 
 		while (!glfwWindowShouldClose(window))
 		{
-			renderer.Clear();
 
+			renderer.Clear();
+			rectangle.SetPosition(rectangle.GetPosition().x + 1, rectangle.GetPosition().y);
 
 			renderer.Draw(rectangle);
+			
 
 
 			glfwSwapBuffers(window);

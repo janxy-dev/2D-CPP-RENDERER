@@ -3,6 +3,8 @@
 #include <fstream>
 #include <string>
 #include<GL/glew.h>
+#include "../Headers/Variables.h"
+
 
 using namespace std;
 
@@ -12,6 +14,13 @@ Shader::Shader(const std::string& path)
 	ShaderSrc src = GetShaderSource(path);
 	_id = CreateShader(src.vertex, src.fragment);
 	Bind();
+	SetMatrix4("projection", glm::mat4(1.0));
+	glm::mat4 projection = glm::ortho(0.0f, s_width, s_height, 0.0f, -1.0f, 1.0f);
+	SetMatrix4("projection", projection);
+}
+
+Shader::~Shader() {
+	std::cout << "shader dtor"<<std::endl;
 }
 
 ShaderSrc Shader::GetShaderSource(const string& path) {
@@ -94,26 +103,26 @@ unsigned int Shader::CreateShader(const string& vertexShader, const string& frag
 
 }
 
-void Shader::SetUniformMatrix4fv(const char* name, unsigned int count, unsigned int transpose, const GLfloat* value) {
+void Shader::SetMatrix4(const char* name, const glm::mat4 value) const{
 	auto location = glGetUniformLocation(_id, name);
-	lcall(glUniformMatrix4fv(location, count, transpose, value));
+	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 
 }
 
-void Shader::SetUniform4f(const char* name, float a, float b, float c, float d) {
+void Shader::SetFloat4(const char* name, float a, float b, float c, float d) const{
 	auto location = glGetUniformLocation(_id, name);
 	lcall(glUniform4f(location, a, b, c, d));
 }
-void Shader::SetUniform2f(const char* name, float a, float b) {
+void Shader::SetFloat2(const char* name, float a, float b) const{
 	auto location = glGetUniformLocation(_id, name);
 	lcall(glUniform2f(location, a, b));
 }
-void Shader::SetUniform4f(const char* name, float a) {
+void Shader::SetFloat(const char* name, float a) const{
 	auto location = glGetUniformLocation(_id, name);
 	lcall(glUniform1f(location, a));
 }
 
-void Shader::SetUniform1i(const char* name, int a) {
+void Shader::SetInt(const char* name, int a) const {
 	auto location = glGetUniformLocation(_id, name);
 	lcall(glUniform1i(location, a));
 }

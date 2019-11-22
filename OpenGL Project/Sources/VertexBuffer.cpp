@@ -8,6 +8,7 @@ VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
 	lcall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
 }
 VertexBuffer::~VertexBuffer() {
+	std::cout << "VertexBuffer dtor"<<std::endl;
 	lcall(glDeleteBuffers(1, &_rendID));
 }
 

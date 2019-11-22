@@ -39,7 +39,7 @@
     <ClCompile Include="Sources\VertexArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\ShapeRectangle.cpp">
+    <ClCompile Include="Sources\RectangleShape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,12 +65,15 @@
     <ClInclude Include="Headers\VertexArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\ShapeRectangle.h">
+    <ClInclude Include="Headers\RectangleShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Variables.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Shader.shader">
+    <None Include="Resources\Rectangle.shader">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

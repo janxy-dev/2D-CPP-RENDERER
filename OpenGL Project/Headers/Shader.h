@@ -3,6 +3,9 @@
 #include<string>
 #include"../Headers/ErrorHandler.h"
 #include <GL/glew.h>
+#include <GLM/glm.hpp>
+#include <GLM/gtc/matrix_transform.hpp>
+#include <GLM/gtc/type_ptr.hpp>
 
 struct ShaderSrc
 {
@@ -18,6 +21,7 @@ private:
 	unsigned int _id;
 public:
 	Shader(const std::string& path);
+	~Shader();
 	ShaderSrc GetShaderSource(const std::string& path);
 	inline unsigned int GetShader() const { return _id; }
 	void Bind() const;
@@ -27,13 +31,12 @@ public:
 		return pth;
 	}
 
-	void SetUniform4f(const char* name, float a, float b, float c, float d);
-	void SetUniform2f(const char* name, float a, float b);
-	void SetUniform4f(const char* name, float a);
-
-	void SetUniform1i(const char* name, int a);
-
-	void SetUniformMatrix4fv(const char* name, unsigned int count, unsigned int transpose, const GLfloat* value);
+	void SetFloat4(const char* name, float a, float b, float c, float d) const;
+	void SetFloat2(const char* name, float a, float b) const;
+	void SetFloat(const char* name, float a) const;
+	void SetInt(const char* name, int a) const;
+	void SetMatrix4(const char* name, const glm::mat4 value) const;
+	
 
 };
 
