@@ -16,8 +16,10 @@
 #include "Headers/RectangleShape.h"
 #include "Headers/Variables.h"
 #include "Headers/CircleShape.h"
+#include "Headers/ResourceManager.h"
 
 using namespace std;
+typedef ResourceManager rm;
 
 int main(void)
 {
@@ -48,17 +50,15 @@ int main(void)
 	cout << glGetString(GL_VERSION) << endl;
 
 	{
-
+		rm::LoadTexture("Resources/logo.jpg", "logo");
+		rm::LoadTexture("Resources/wall.jpg", "wall");
 		Renderer renderer;
 
+		RectangleShape rectangle(200.0f, 200.0f, glm::vec2(50.0f, 50.0f));
 		CircleShape circle(100.0f, 100, glm::vec2(s_width/2, s_height/2));
-		circle.SetTexture("Resources/logo.png");
-		circle.GetShader().SetFloat4("_color", 1.0f, 0.0f, 0.0f, 0.0f);
-		RectangleShape rectangle(100.0f, 100.0f, glm::vec2(50.0f, 50.0f));
-		rectangle.SetTexture("Resources/wall.jpg");
-
-
-		
+		circle.SetTexture("logo");
+		rectangle.SetTexture("wall");
+		circle.Scale(glm::vec2(0.5f, 0.5f));
 		
 
 		while (!glfwWindowShouldClose(window))
@@ -72,6 +72,7 @@ int main(void)
 			glfwSwapBuffers(window);
 			glfwPollEvents();
 		}
+		rm::DeleteAllShaders();
 	}
 	glfwTerminate();
 	return 0;

@@ -163,6 +163,7 @@
     <ClCompile Include="Sources\IndexBuffer.cpp" />
     <ClCompile Include="Sources\RectangleShape.cpp" />
     <ClCompile Include="Sources\Renderer.cpp" />
+    <ClCompile Include="Sources\ResourceManager.cpp" />
     <ClCompile Include="Sources\Shader.cpp" />
     <ClCompile Include="Sources\Shape.cpp" />
     <ClCompile Include="Sources\Texture.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Headers\CircleShape.h" />
     <ClInclude Include="Headers\RectangleShape.h" />
     <ClInclude Include="Headers\ErrorHandler.h" />
+    <ClInclude Include="Headers\ResourceManager.h" />
     <ClInclude Include="Headers\Shape.h" />
     <ClInclude Include="Headers\Texture.h" />
     <ClInclude Include="Headers\IndexBuffer.h" />

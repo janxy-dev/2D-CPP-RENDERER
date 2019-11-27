@@ -13,14 +13,13 @@ Shader::Shader(const std::string& path)
 {
 	ShaderSrc src = GetShaderSource(path);
 	_id = CreateShader(src.vertex, src.fragment);
-	Bind();
 	glm::mat4 projection = glm::ortho(0.0f, (float)s_width, (float)s_height, 0.0f, -1.0f, 1.0f);
 	SetMatrix4("projection", projection);
 }
 
 Shader::~Shader() {
-	glDeleteProgram(GetShader());
-	std::cout << "shader dtor"<<std::endl;
+	std::cout << "shader dtor" << std::endl;
+	UnBind();
 }
 
 ShaderSrc Shader::GetShaderSource(const string& path) {

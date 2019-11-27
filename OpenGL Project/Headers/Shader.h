@@ -23,7 +23,7 @@ public:
 	Shader(const std::string& path);
 	~Shader();
 	ShaderSrc GetShaderSource(const std::string& path);
-	unsigned int GetShader() const { return _id; }
+	unsigned int GetID() const { return _id; }
 	void Bind() const;
 	void UnBind() const;
 	std::string pth;

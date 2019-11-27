@@ -3,7 +3,7 @@ void Renderer::Draw(const RectangleShape& shape) {
 	
 	shape.GetShader().Bind();
 	shape.GetVertexArray().Bind();
-	shape.GetTexture().Bind();
+	if (shape.HasTexture()) { shape.GetTexture().Bind(); }
 
 	lcall(glDrawElements(GL_TRIANGLES, shape.GetIndexBuffer().GetCount(), GL_UNSIGNED_INT, nullptr));
 
@@ -11,7 +11,7 @@ void Renderer::Draw(const RectangleShape& shape) {
 void Renderer::Draw(const CircleShape& shape) {
 	shape.GetShader().Bind();
 	shape.GetVertexArray().Bind();
-	shape.GetTexture().Bind();
+	if (shape.HasTexture()) { shape.GetTexture().Bind(); }
 
 	lcall(glDrawArrays(GL_TRIANGLE_FAN, 0, shape.GetVertCount()));
 }

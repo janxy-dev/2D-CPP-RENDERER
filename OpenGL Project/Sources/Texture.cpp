@@ -36,10 +36,7 @@ Texture::Texture(const char* path, unsigned int index)
 		else {
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		}
-		
-
 		glGenerateMipmap(GL_TEXTURE_2D);
-		cout << "Texture loaded." << endl;;
 	}
 	else {
 		cout << "Failed to load a texture"<<endl;
