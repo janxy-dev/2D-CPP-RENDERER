@@ -16,7 +16,6 @@ Texture::Texture(const char* path, unsigned int index)
 	: _rendID(0), _path(path), width(0), height(0), nrChannels(0), layout(index)
 
 {
-	
 	glGenTextures(1, &_rendID);
 	glActiveTexture(layout);
 	glBindTexture(GL_TEXTURE_2D, _rendID);

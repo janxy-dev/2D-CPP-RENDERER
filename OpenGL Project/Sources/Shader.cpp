@@ -14,12 +14,12 @@ Shader::Shader(const std::string& path)
 	ShaderSrc src = GetShaderSource(path);
 	_id = CreateShader(src.vertex, src.fragment);
 	Bind();
-	SetMatrix4("projection", glm::mat4(1.0));
-	glm::mat4 projection = glm::ortho(0.0f, s_width, s_height, 0.0f, -1.0f, 1.0f);
+	glm::mat4 projection = glm::ortho(0.0f, (float)s_width, (float)s_height, 0.0f, -1.0f, 1.0f);
 	SetMatrix4("projection", projection);
 }
 
 Shader::~Shader() {
+	glDeleteProgram(GetShader());
 	std::cout << "shader dtor"<<std::endl;
 }
 
@@ -104,25 +104,29 @@ unsigned int Shader::CreateShader(const string& vertexShader, const string& frag
 }
 
 void Shader::SetMatrix4(const char* name, const glm::mat4 value) const{
+	Bind();
 	auto location = glGetUniformLocation(_id, name);
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
-
 }
 
 void Shader::SetFloat4(const char* name, float a, float b, float c, float d) const{
+	Bind();
 	auto location = glGetUniformLocation(_id, name);
 	lcall(glUniform4f(location, a, b, c, d));
 }
 void Shader::SetFloat2(const char* name, float a, float b) const{
+	Bind();
 	auto location = glGetUniformLocation(_id, name);
 	lcall(glUniform2f(location, a, b));
 }
 void Shader::SetFloat(const char* name, float a) const{
+	Bind();
 	auto location = glGetUniformLocation(_id, name);
 	lcall(glUniform1f(location, a));
 }
 
 void Shader::SetInt(const char* name, int a) const {
+	Bind();
 	auto location = glGetUniformLocation(_id, name);
 	lcall(glUniform1i(location, a));
 }

@@ -8,7 +8,7 @@ public:
 	void Bind() const;
 	void UnBind() const;
 
-	inline unsigned int GetCount() const {
+	 unsigned int GetCount() const {
 		return _count;
 	}
 

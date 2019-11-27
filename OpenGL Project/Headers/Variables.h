@@ -2,4 +2,3 @@
 
 static float s_width = 640;
 static float s_height = 480;
-static bool s_ortho = true;

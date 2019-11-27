@@ -7,7 +7,7 @@ public:
 
 	void Bind() const;
 	void UnBind() const;
-	unsigned int inline const getRendererID() {
+	unsigned int  const getRendererID() {
 		return _rendID;
 	}
 private:
