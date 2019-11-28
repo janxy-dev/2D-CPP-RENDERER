@@ -1,4 +1,6 @@
 #include "../Headers/Shape.h"
+#include <GLM/gtc/matrix_transform.hpp>
+#include <GLM/gtc/type_ptr.hpp>
 
 unsigned int Shape::instance = 0;
 
@@ -9,12 +11,12 @@ Shape::Shape(float* vertices, unsigned int* indices, float width, float height, 
 	shader = rm::GetShader("shape" + std::to_string(instance));
 	model = glm::scale(model, glm::vec3(width, height, 1.0f));
 	size = glm::vec2(width, height);
+	collisionBounds.size = size;
 	model = glm::translate(model, glm::vec3(position.x / size.x - 0.5, position.y / size.y - 0.5, 0.0f));
 
 	shader->SetMatrix4("model", model);
 	shader->SetInt("tex", 0);
 	shader->SetFloat4("_color", 1.0f, 1.0f, 1.0f, 0.0f);
-	Scale(glm::vec2(1.0f, -1.0f));
 	instance++;
 
 }
@@ -33,6 +35,7 @@ void Shape::Scale(glm::vec2 times) {
 	model = glm::translate(model, glm::vec3(0.5, 0.5, 0.0f));
 	model = glm::scale(model, glm::vec3(times, 1.0f));
 	size = size * times;
+	collisionBounds.size = collisionBounds.size * times;
 	model = glm::translate(model, glm::vec3(-0.5, -0.5, 0.0f));
 	shader->SetMatrix4("model", model);
 }
@@ -60,4 +63,8 @@ void Shape::Translate(glm::vec2 vec) {
 	position = position + vec;
 	model = glm::translate(model, glm::vec3(vec.x / size.x, vec.y / size.y, 0.0f));
 	shader->SetMatrix4("model", model);
+}
+
+void Shape::ScaleCollisionBounds(glm::vec2 times) {
+	collisionBounds.size = size * times;
 }

@@ -159,7 +159,9 @@
   <ItemGroup>
     <ClCompile Include="OpenGL Project.cpp" />
     <ClCompile Include="Sources\CircleShape.cpp" />
+    <ClCompile Include="Sources\Collisions.cpp" />
     <ClCompile Include="Sources\ErrorHandler.cpp" />
+    <ClCompile Include="Sources\Events.cpp" />
     <ClCompile Include="Sources\IndexBuffer.cpp" />
     <ClCompile Include="Sources\RectangleShape.cpp" />
     <ClCompile Include="Sources\Renderer.cpp" />
@@ -172,6 +174,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\CircleShape.h" />
+    <ClInclude Include="Headers\Collisions.h" />
+    <ClInclude Include="Headers\Events.h" />
     <ClInclude Include="Headers\RectangleShape.h" />
     <ClInclude Include="Headers\ErrorHandler.h" />
     <ClInclude Include="Headers\ResourceManager.h" />

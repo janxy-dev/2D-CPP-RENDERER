@@ -17,9 +17,15 @@
 #include "Headers/Variables.h"
 #include "Headers/CircleShape.h"
 #include "Headers/ResourceManager.h"
+#include "Headers/Collisions.h"
+#include "Headers/Events.h"
 
 using namespace std;
 typedef ResourceManager rm;
+
+void say() {
+	std::cout << "OK" << std::endl;
+}
 
 int main(void)
 {
@@ -55,22 +61,42 @@ int main(void)
 		Renderer renderer;
 
 		RectangleShape rectangle(200.0f, 200.0f, glm::vec2(50.0f, 50.0f));
+		RectangleShape rectangle2(200.0f, 200.0f, glm::vec2(s_width/2, s_height/2));
 		CircleShape circle(100.0f, 100, glm::vec2(s_width/2, s_height/2));
 		circle.SetTexture("logo");
 		rectangle.SetTexture("wall");
-		circle.Scale(glm::vec2(0.5f, 0.5f));
-		
+		rectangle.SetPosition(s_width / 2, s_height / 2);
 
+		rectangle.ScaleCollisionBounds(glm::vec2(0.8f, 0.8f));
 		while (!glfwWindowShouldClose(window))
 		{
 			renderer.Clear();
+			
+			if (Events::GetKeyState(GLFW_KEY_D)) {
+				rectangle.Translate(glm::vec2(2.0f, 0.0f));
+			}
+			if (Events::GetKeyState(GLFW_KEY_A)) {
+				rectangle.Translate(glm::vec2(-2.0f, 0.0f));
+			}
+			if (Events::GetKeyState(GLFW_KEY_W)) {
+				rectangle.Translate(glm::vec2(0.0f, -2.0f));
+			}
+			if (Events::GetKeyState(GLFW_KEY_S)) {
+				rectangle.Translate(glm::vec2(0.0f, 2.0f));
+			}
 
-			renderer.Draw(rectangle);
+			if (Collisions::CheckCollision(rectangle.GetCollisionBounds(), rectangle2.GetCollisionBounds())) {
+				std::cout << "collision!" << std::endl;
+			}
+
 			renderer.Draw(circle);
-
+			renderer.Draw(rectangle2);
+			renderer.Draw(rectangle);
+			
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();
+			Events::KeyCallBack(window);
 		}
 		rm::DeleteAllShaders();
 	}

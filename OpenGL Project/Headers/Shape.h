@@ -2,8 +2,6 @@
 #include<iostream>
 #include <vector>
 #include<GLM/glm.hpp>
-#include <GLM/gtc/matrix_transform.hpp>
-#include <GLM/gtc/type_ptr.hpp>
 #include "../Headers/Shader.h"
 #include "../Headers/VertexArray.h"
 #include "../Headers/IndexBuffer.h"
@@ -12,6 +10,11 @@
 #include "../Headers/ResourceManager.h"
 
 typedef ResourceManager rm;
+
+struct Bounds {
+	glm::vec2 size;
+	const glm::vec2& pos;
+};
 
 class Shape {
 public:
@@ -22,12 +25,15 @@ public:
 	void Rotate(float angle);
 	void SetPosition(float posx, float posy);
 	glm::vec2 GetPosition() const { return position; };
+	glm::vec2 GetSize() const { return size; }
 	void Translate(glm::vec2 vec);
 	unsigned int* GetIndices() { return indices; }
 	float* GetVertices() { return vertices; }
 	const Shader& GetShader() const { return *shader; }
 	Texture& GetTexture() const { return *texture; };
 	bool HasTexture() const { return hastexture; }
+	Bounds GetCollisionBounds() const { return collisionBounds; }
+	void ScaleCollisionBounds(glm::vec2 times);
 	static unsigned int instance;
 private:
 	float* vertices;
@@ -39,4 +45,5 @@ private:
 	std::shared_ptr<Texture> texture;
 	float rotation = 0;
 	bool hastexture = false;
+	Bounds collisionBounds = { glm::vec2(1.0), position };
 };

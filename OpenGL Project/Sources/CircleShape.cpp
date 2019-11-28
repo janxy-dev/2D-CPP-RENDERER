@@ -21,7 +21,7 @@ CircleShape::CircleShape(float r, unsigned int pNum, glm::vec2 pos)
 	//TexCoords
 	for (unsigned int i = 0; i < vert.size(); i+=2) {
 		float x = (vert[i]/r+1)*0.5f;
-		float y = (vert[i+1]/r+1)*0.5f;
+		float y = (vert[i+1]/r+1)*-0.5f;
 		coords.push_back(x);
 		coords.push_back(y);
 	}
