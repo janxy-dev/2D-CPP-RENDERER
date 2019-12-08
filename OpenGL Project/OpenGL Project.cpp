@@ -77,7 +77,6 @@ int main(void)
 			Renderer::Clear();
 			
 			if (!win) {
-
 				if (enemy.GetPosition().x > s_width) {
 					enemyRightDir = false;
 				}

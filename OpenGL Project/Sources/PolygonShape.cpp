@@ -1,6 +1,6 @@
 #include "../Headers/PolygonShape.h"
 
-PolygonShape::PolygonShape(float r = 100.0f, unsigned int pNum = 100, float x = 0, float y = 0)
+PolygonShape::PolygonShape(float r, unsigned int pNum, float x, float y)
 	:pointNumber(pNum), radius(r), Shape(nullptr, nullptr, r, r, glm::vec2(x,y), va, pNum*4+8)
 {
 	std::vector<float> vert;
@@ -40,7 +40,6 @@ PolygonShape::PolygonShape(float r = 100.0f, unsigned int pNum = 100, float x = 
 	va.AddBuffer(*vb, 0, 2, GL_FLOAT, 4);
 	va.AddBuffer(*vb, 1, 2, GL_FLOAT, 4);
 
-	ScaleCollisionBounds(glm::vec2(r));
 	SetCollisisionBoundsType(BoundsType::CIRCLE);
 	SetPolygon(true);
 

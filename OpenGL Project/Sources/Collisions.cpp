@@ -14,5 +14,13 @@ bool Collisions::CheckCollision(Bounds bounds1, Bounds bounds2) {
 		bool result = rightside && leftside && bottomside && topside;
 		return result;
 	}
+
+	if (bounds1.type == BoundsType::CIRCLE && bounds2.type == BoundsType::CIRCLE) {
+		glm::vec2 pos1 = bounds1.pos;
+		glm::vec2 pos2 = bounds2.pos;
+		bool result = glm::distance(pos1, pos2) <= bounds1.size.x + bounds2.size.x;
+
+		return result;
+	}
 	return false;
 }
