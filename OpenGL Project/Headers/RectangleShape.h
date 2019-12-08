@@ -11,12 +11,7 @@
 
 class RectangleShape : public Shape{
 public:
-	RectangleShape(float width = 100.0f, float height = 100.0f, glm::vec2 pos = glm::vec2(0.0f, 0.0f));
-	const IndexBuffer& GetIndexBuffer() const { return ib; }
-	const VertexArray& GetVertexArray() const { return va; }
-	 unsigned int GetID() { return va.GetRendID(); }
-	 unsigned int* GetIndices(){return indices;}
-	 float* GetVertices() {return vertices;}
+	RectangleShape(float width = 100.0f, float height = 100.0f, float x = 0.0f, float y = 0.0f);
 private:
 
 	float vertices[16] = {
@@ -34,6 +29,5 @@ private:
 	VertexArray va;
 	VertexBuffer vb = { vertices, 4 * 4 * sizeof(float) };
 	IndexBuffer ib{ IndexBuffer(indices, 6) };
-	
 };
 

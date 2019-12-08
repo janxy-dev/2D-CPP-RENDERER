@@ -8,6 +8,9 @@ class Texture {
 public:
 	Texture(const char* path, unsigned int layer = GL_TEXTURE0);
 	void Bind();
+	void UnBind();
+	int GetWidth() const { return width; }
+	int GetHeight() const { return height; }
 private:
 	int width;
 	int height;

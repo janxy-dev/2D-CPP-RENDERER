@@ -5,13 +5,14 @@
 #include "../Headers/IndexBuffer.h"
 #include "../Headers/Shader.h"
 #include "../Headers/RectangleShape.h"
-#include "../Headers/CircleShape.h"
+#include "../Headers/PolygonShape.h"
 
 class Renderer {
 public:
-
-	void Draw(const RectangleShape& shape);
-	void Draw(const CircleShape& shape);
-	void Clear();
+	static void Draw(const Shape& shape);
+	static void Clear();
+private:
+	static std::vector<Shape> shapes;
+	Renderer();
 
 };

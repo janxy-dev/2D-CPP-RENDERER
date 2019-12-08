@@ -1,11 +1,12 @@
 #include "../Headers/Shape.h"
 #include <GLM/gtc/matrix_transform.hpp>
 #include <GLM/gtc/type_ptr.hpp>
+#include "../Headers/Renderer.h"
 
 unsigned int Shape::instance = 0;
 
-Shape::Shape(float* vertices, unsigned int* indices, float width, float height, glm::vec2 pos)
-	: vertices(vertices), indices(indices), position(pos)
+Shape::Shape(float* vert, unsigned int* indic, float width, float height, glm::vec2 pos, const VertexArray& va, unsigned int count)
+	: vertices(vert), indices(indic), position(pos), va(va), elementCount(count)
 {
 	rm::LoadShader("Resources/Shape.shader", "shape" + std::to_string(instance));
 	shader = rm::GetShader("shape" + std::to_string(instance));
@@ -16,12 +17,13 @@ Shape::Shape(float* vertices, unsigned int* indices, float width, float height, 
 
 	shader->SetMatrix4("model", model);
 	shader->SetInt("tex", 0);
-	shader->SetFloat4("_color", 1.0f, 1.0f, 1.0f, 0.0f);
+	shader->SetFloat4("_color", 1.0f, 1.0f, 1.0f, 1.0f);
 	instance++;
 
 }
 
 Shape::~Shape() {
+	//Renderer::RemoveShape(*this);
 }
 
 void Shape::SetTexture(const char* name) {
@@ -67,4 +69,14 @@ void Shape::Translate(glm::vec2 vec) {
 
 void Shape::ScaleCollisionBounds(glm::vec2 times) {
 	collisionBounds.size = size * times;
+}
+
+void Shape::SetCollisisionBoundsType(BoundsType type) {
+	collisionBounds.type = type;
+}
+
+void Shape::FillColor(float a, float b, float c, float d){
+	shader->SetInt("tex", 0);
+	shader->SetFloat4("_color", a, b, c, d);
+	hastexture = false;
 }

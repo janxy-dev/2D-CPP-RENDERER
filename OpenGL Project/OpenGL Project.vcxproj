@@ -158,7 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="OpenGL Project.cpp" />
-    <ClCompile Include="Sources\CircleShape.cpp" />
+    <ClCompile Include="Sources\PolygonShape.cpp" />
     <ClCompile Include="Sources\Collisions.cpp" />
     <ClCompile Include="Sources\ErrorHandler.cpp" />
     <ClCompile Include="Sources\Events.cpp" />
@@ -168,18 +168,20 @@
     <ClCompile Include="Sources\ResourceManager.cpp" />
     <ClCompile Include="Sources\Shader.cpp" />
     <ClCompile Include="Sources\Shape.cpp" />
+    <ClCompile Include="Sources\Sprite.cpp" />
     <ClCompile Include="Sources\Texture.cpp" />
     <ClCompile Include="Sources\VertexArray.cpp" />
     <ClCompile Include="Sources\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\CircleShape.h" />
+    <ClInclude Include="Headers\PolygonShape.h" />
     <ClInclude Include="Headers\Collisions.h" />
     <ClInclude Include="Headers\Events.h" />
     <ClInclude Include="Headers\RectangleShape.h" />
     <ClInclude Include="Headers\ErrorHandler.h" />
     <ClInclude Include="Headers\ResourceManager.h" />
     <ClInclude Include="Headers\Shape.h" />
+    <ClInclude Include="Headers\Sprite.h" />
     <ClInclude Include="Headers\Texture.h" />
     <ClInclude Include="Headers\IndexBuffer.h" />
     <ClInclude Include="Headers\Renderer.h" />

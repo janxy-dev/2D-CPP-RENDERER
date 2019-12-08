@@ -52,7 +52,7 @@ ShaderSrc Shader::GetShaderSource(const string& path) {
 
 void Shader::Bind() const
 {
-	lcall(glUseProgram(_id));
+ 	lcall(glUseProgram(_id));
 }
 
 void Shader::UnBind() const

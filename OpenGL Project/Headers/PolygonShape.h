@@ -2,12 +2,12 @@
 
 #include "../Headers/Shape.h"
 
-struct DrawableCircleShape {
+struct DrawablePolygonShape {
 	const VertexArray& va;
 };
-class CircleShape : public Shape{
+class PolygonShape : public Shape{
 public:
-	CircleShape(float radius, unsigned int numberOfPoints, glm::vec2 pos);
+	PolygonShape(float radius, unsigned int numberOfPoints, float x, float y);
 	 const VertexArray& GetVertexArray() const{ return va; };
 	 unsigned int GetID() const{return va.GetRendID();}
 	 float* GetVertices() const{return vertices;}

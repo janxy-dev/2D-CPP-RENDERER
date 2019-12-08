@@ -3,15 +3,6 @@
 #include "../Headers/Texture.h"
 #include "../../Dependencies/stb_image.h"
 using namespace std;
-
-float texCords[] = {
-
-	0.0f, 0.0f,
-	0.1f, 0.0f,
-	0.5f, 1.0f
-
-};
-
 Texture::Texture(const char* path, unsigned int index)
 	: _rendID(0), _path(path), width(0), height(0), nrChannels(0), layout(index)
 
@@ -29,6 +20,9 @@ Texture::Texture(const char* path, unsigned int index)
 
 	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	if (data) {
 		if (nrChannels == 4) {
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -42,10 +36,10 @@ Texture::Texture(const char* path, unsigned int index)
 		cout << "Failed to load a texture"<<endl;
 	}
 	stbi_image_free(data);
-
-	
 }
-
 void Texture::Bind() {
 	glBindTexture(GL_TEXTURE_2D, _rendID);
+}
+void Texture::UnBind() {
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
